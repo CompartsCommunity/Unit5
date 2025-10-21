@@ -12,6 +12,8 @@
   /* star sizes */
   --star-min:18px;
   --star-max:34px;
+
+  --mobile-header-space: 200px; 
 }
 
 /* Inter everywhere, uniform size */
@@ -65,19 +67,67 @@ body{
 .title{ font-weight:600; }
 .subtitle{ color:var(--muted); }
 
-/* Mobile overrides: center/stack like your mobile mock */
-@media (max-width: 560px){
-  .hud{ text-align: center; z-index:50; }
+/* On mobile, hide desktop canvas + overlay and show the stack */
+/* ===== Mobile stacked previews & header ===== */
+.mobile-list{ display:none; }
+.mobile-header{ display:none; }
 
-  .title, .subtitle, .hint, .year{
-    position:fixed !important; left:50% !important; transform:translateX(-50%) !important;
-    text-align:center;
+@media (max-width: 560px){
+  /* Hide desktop constellation/overlay on mobile */
+  .stage{ display:none; }
+  .preview{ display:none !important; }
+
+  /* Show the mobile header */
+  .mobile-header{
+    display:block;
+    position:fixed;        /* stays at top; content scrolls beneath */
+    top:50px; left:0; right:0;
+    padding: 14px;
+    height: var(--mobile-header-space);
+    /* optional: soft divider line at the bottom of header */
   }
-  .title{ top: 130px !important; }
-  .subtitle{ top: 180px !important; }
-  .hint{ top: 240px !important; }
-  .year{ top: 320px !important; }
+  .mobile-header .mh-title{
+    margin: 6px 0 4px 0; font-weight:600; font-size: var(--fs);
+  }
+  .mobile-header .mh-subtitle,
+  .mobile-header .mh-hint,
+  .mobile-header .mh-year{
+    margin: 0 0 6px 0; font-size: var(--fs);
+  }
+  .mobile-header .mh-subtitle{ color: var(--muted); }
+
+  /* Show the stacked previews, pushed below the fixed header */
+  .mobile-list{
+    display:block;
+    padding: 14px;
+    padding-top: calc(var(--mobile-header-space) + 10px); /* <- top spacing */
+  }
+
+  .mobile-card{
+    margin: 0 0 22px 0;
+  }
+  .mobile-card .label{
+    margin: 0 0 8px 0;
+    font-weight: 600;
+  }
+  .mobile-card .frame{
+    position: relative;
+    /* border: 2px solid rgba(255,255,255,.6); */
+    background: #fff;
+    overflow: hidden;
+  }
+  .mobile-card iframe{
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border: 0;
+    background: #fff;
+  }
+  .mobile-card .coverlink{
+    position: absolute; inset: 0;
+    display: block; background: transparent;
+  }
 }
+
 
 /* Stars (absolute in design space; never moved by resize) */
 .star{
@@ -108,7 +158,7 @@ body{
 .preview[hidden]{ display:none }
 .preview .frame{
   width:min(90vw,1100px); height:min(80vh,720px);
-  border-radius:0px; border:2px solid rgba(255,255,255,.6); overflow:hidden;
+  border-radius:0px; border:0px solid rgba(255,255,255,.6); overflow:hidden;
   box-shadow:0 40px 90px rgba(0,0,0,.35); background:#fff;
 }
 .preview iframe{ width:100%; height:100%; border:0; }
@@ -116,9 +166,7 @@ body{
   position:absolute; top:18px; left:50%; transform:translateX(-50%);
  padding:6px 10px; border-radius:10px;
 }
-.preview .close{
-  position:absolute; top:14px; right:14px; width:36px; height:36px;
-  border:0; border-radius:50%; background:#fff; color:#111; font-size:22px; cursor:pointer;
+.preview .close{display: none;
 }
 
 /* hide the label entirely */
@@ -133,3 +181,4 @@ body{
 }
 .preview .frame iframe{ position:relative; z-index:1; }
 .preview .close{ z-index:3; } /* ensure close stays above the link */
+
