@@ -1,44 +1,135 @@
-.work {
-  display: none;
+:root{
+  /* global type */
+  --fs: 16px;
+  --lh: 1.35;
+
+  /* colors */
+  --blue:#0a26ff;
+  --white:#ffffff;
+  --muted:#cfd5ff;
+  --ui:#e9e9e9;
+
+  /* star sizes */
+  --star-min:18px;
+  --star-max:34px;
 }
 
-.indicator {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  z-index: 1000;
-  margin: 0;
+/* Inter everywhere, uniform size */
+html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+body{
+  margin:0; height:100%;
+  font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+  font-size:var(--fs); line-height:var(--lh); color:var(--white);
+  background:var(--blue); /* full-bleed blue */
 }
 
-/* Media queries for the four iframe containers in index.html
-   Each query matches the container width and height with a +/-10px buffer.
-   When matched, the .work iframes are shown (display: block).
-*/
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-/* 1) Container: 800 x 906 --> match 790-810 width, 896-916 height */
-@media (min-width: 790px) and (max-width: 810px) and (min-height: 896px) and (max-height: 916px) {
-  body > div:nth-child(1) .work {
-    display: block;
+/* HUD (outside the scaled canvas so it doesn't shrink) */
+.hud{ position:fixed; top:14px; left:14px; z-index:50; }
+.picker{
+  display:flex; gap:6px; align-items:center;
+  background:rgba(255,255,255,.18); padding:6px 8px; border-radius:12px;
+  border:1px solid rgba(255,255,255,.28); backdrop-filter: blur(6px) saturate(140%);
+}
+.picker select,.picker button{
+  appearance:none; -webkit-appearance:none; -moz-appearance:none;
+  font:inherit; border:0; border-radius:8px; padding:6px 10px; cursor:pointer;
+  color:#111;
+}
+.picker select{ background:var(--ui); }
+.picker button{ background:#fff; }
+
+/* Stage fills screen; no scaling */
+.stage{
+  position:fixed; inset:0;
+  background:var(--blue);
+}
+.sky{
+  position:relative;      /* stays at natural size set by JS */
+  left:0; top:0;
+  transform:none;         /* IMPORTANT: no scale transforms */
+  transform-origin: initial;
+}
+
+/* Keep uniform Inter size everywhere */
+.title,.subtitle,.hint,.year,
+.star .label,
+.picker select,.picker button{
+  font-size: var(--fs);   /* already set to 16px in :root */
+}
+
+
+/* Desktop text positions are absolute inside design canvas (set by JS below) */
+.t{ position:absolute; margin:0; font-weight:400; font-size:var(--fs); }
+.title{ font-weight:600; }
+.subtitle{ color:var(--muted); }
+
+/* Mobile overrides: center/stack like your mobile mock */
+@media (max-width: 560px){
+  .hud{ text-align: center; z-index:50; }
+
+  .title, .subtitle, .hint, .year{
+    position:fixed !important; left:50% !important; transform:translateX(-50%) !important;
+    text-align:center;
   }
+  .title{ top: 130px !important; }
+  .subtitle{ top: 180px !important; }
+  .hint{ top: 240px !important; }
+  .year{ top: 320px !important; }
 }
 
-/* 2) Container: 1021 x 434 --> match 1011-1031 width, 424-444 height */
-@media (min-width: 1011px) and (max-width: 1031px) and (min-height: 424px) and (max-height: 444px) {
-  body > div:nth-child(2) .work {
-    display: block;
-  }
+/* Stars (absolute in design space; never moved by resize) */
+.star{
+  position:absolute;
+  width: var(--sz); height: var(--sz);
+  transform: translate(-50%, -50%) rotate(var(--rot,0deg));
+  cursor:pointer; color:#fff; text-decoration:none; outline:none;
+}
+.star::before,.star::after{
+  content:""; position:absolute; inset:0; margin:auto;
+  width:100%; height:14%; background:#fff; border-radius:999px; box-shadow:0 0 18px rgba(255,255,255,.25);
+}
+.star::after{ transform: rotate(60deg); }
+.star span{ position:absolute; inset:0; margin:auto; width:14%; height:100%; background:#fff; border-radius:999px; box-shadow:0 0 18px rgba(255,255,255,.25); }
+.star .label{
+  position:absolute; top:calc(100% + 6px); left:50%; transform:translateX(-50%);
+  background:rgba(0,0,0,.28); border-radius:6px; padding:3px 6px; white-space:nowrap;
+  font-size:var(--fs); opacity:0; transition:opacity .15s ease; pointer-events:none;
+}
+.star:hover .label,.star:focus .label{ opacity:1 }
+.star:focus-visible{ outline:2px solid #fff; outline-offset:4px }
+
+/* Preview overlay */
+.preview{
+  position:fixed; inset:0; display:grid; place-items:center; z-index:100;
+  backdrop-filter: blur(3px);
+}
+.preview[hidden]{ display:none }
+.preview .frame{
+  width:min(90vw,1100px); height:min(80vh,720px);
+  border-radius:0px; border:2px solid rgba(255,255,255,.6); overflow:hidden;
+  box-shadow:0 40px 90px rgba(0,0,0,.35); background:#fff;
+}
+.preview iframe{ width:100%; height:100%; border:0; }
+.preview .label{
+  position:absolute; top:18px; left:50%; transform:translateX(-50%);
+ padding:6px 10px; border-radius:10px;
+}
+.preview .close{
+  position:absolute; top:14px; right:14px; width:36px; height:36px;
+  border:0; border-radius:50%; background:#fff; color:#111; font-size:22px; cursor:pointer;
 }
 
-/* 3) Container: 1100 x 619 --> match 1090-1110 width, 609-629 height */
-@media (min-width: 1090px) and (max-width: 1110px) and (min-height: 609px) and (max-height: 629px) {
-  body > div:nth-child(3) .work {
-    display: block;
-  }
-}
+/* hide the label entirely */
 
-/* 4) Container: 1274 x 715 --> match 1264-1284 width, 705-725 height */
-@media (min-width: 1264px) and (max-width: 1284px) and (min-height: 705px) and (max-height: 725px) {
-  body > div:nth-child(4) .work {
-    display: block;
-  }
+/* full-cover link over the iframe; keeps the preview non-interactive and clickable */
+.preview .coverlink{
+  position:absolute; inset:0;
+  z-index:2;
+  /* invisible but clickable */
+  background: transparent;
+  display:block;
 }
+.preview .frame iframe{ position:relative; z-index:1; }
+.preview .close{ z-index:3; } /* ensure close stays above the link */
