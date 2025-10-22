@@ -11,33 +11,54 @@ const PADDING = 60; // extra canvas padding (desktop)
 /* Students (pos = star coord; slot = viewport trigger size on desktop) */
 const STUDENTS = [
   {
-    name: "Flutter Shy",
-    work: "Year 2 Pop Up",
+    name: "Syntyche Ngalula Mukendi",
+    work: "World of Thoughts",
     url: "https://flutter-shy-bit.github.io/Year2PopUp/",
-    pos: { x: 1021, y: 434 },
-    slot: { w: 1021, h: 434 },
+    pos: { x: 1021, y: 334 },
+    slot: { w: 1021, h: 334 },
   },
   {
-    name: "M Tyda",
+    name: "Matyda",
     work: "Unit 5",
-    url: "https://mtyda.github.io/unit5/",
-    pos: { x: 1100, y: 619 },
-    slot: { w: 1100, h: 619 },
+    url: "https://mtyda.github.io/unit5final/",
+    pos: { x: 1100, y: 519 },
+    slot: { w: 1100, h: 519 },
   },
   {
     name: "Val Ehu",
     work: "Who Am I",
     url: "https://valehu2517.github.io/WhoAmI/",
-    pos: { x: 1274, y: 715 },
-    slot: { w: 1274, h: 715 },
+    pos: { x: 1274, y: 615 },
+    slot: { w: 1274, h: 615 },
   },
   {
     name: "Mina",
     work: "Title",
     url: "https://minoliiih.github.io/unit5/",
-    pos: { x: 1034, y: 725 },
-    slot: { w: 1034, h: 725 },
+    pos: { x: 534, y: 625 },
+    slot: { w: 534, h: 625 },
   },
+    {
+    name: "Shamsia",
+    work: "Dairy Blog",
+    url: "https://shamsiag0.github.io/Diary-Blog./",
+    pos: { x: 999, y: 725 },
+    slot: { w: 999, h: 725 },
+  },
+  {
+    name: "Haoru Li",
+    work: "Title",
+    url: "https://haorurose.github.io/",
+    pos: { x: 888, y: 645 },
+    slot: { w: 888, h: 645 },
+  },
+    {
+    name: "Miro Alleyne McCarthy",
+    work: "Poetry Page",
+    url: "https://miroalleynemccarthy.com/poetry#poetry-page-2-tester",
+    pos: { x: 1080, y: 635 },
+    slot: { w: 1080, h: 635 },
+  }
 ];
 
 /* Desktop text positions (absolute pixels inside design canvas) */
