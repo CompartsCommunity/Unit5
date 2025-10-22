@@ -35,8 +35,8 @@ const STUDENTS = [
     name: "Mina",
     work: "Title",
     url: "https://minoliiih.github.io/unit5/",
-    pos: { x: 534, y: 625 },
-    slot: { w: 534, h: 625 },
+    pos: { x: 654, y: 425 },
+    slot: { w: 654, h: 425 },
   },
     {
     name: "Shamsia",
