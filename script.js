@@ -39,8 +39,8 @@ const STUDENTS = [
     slot: { w: 654, h: 425 },
   },
     {
-    name: "Shamsia",
-    work: "Dairy Blog",
+    name: "Shamsia Goodsell",
+    work: "My Blog",
     url: "https://shamsiag0.github.io/Diary-Blog./",
     pos: { x: 999, y: 725 },
     slot: { w: 999, h: 725 },
@@ -58,6 +58,13 @@ const STUDENTS = [
     url: "https://miroalleynemccarthy.com/poetry#poetry-page-2-tester",
     pos: { x: 1080, y: 635 },
     slot: { w: 1080, h: 635 },
+  },
+      {
+    name: "Samara Fullerton",
+    work: "The Flow Out From Within ",
+    url: "https://samzyara-web.github.io/The-flow-out-from-within-unit-5/",
+    pos: { x: 780, y: 480 },
+    slot: { w: 780, h: 480 },
   }
 ];
 
