@@ -47,8 +47,8 @@ const STUDENTS = [
   },
   {
     name: "Haoru Li",
-    work: "Title",
-    url: "https://haorurose.github.io/",
+    work: "Cyber Electronic Prayer",
+    url: "https://haorurose.github.io/-CyberElectronicPrayer-/",
     pos: { x: 888, y: 645 },
     slot: { w: 888, h: 645 },
   },
@@ -67,7 +67,7 @@ const STUDENTS = [
     slot: { w: 780, h: 480 },
   },
     {
-    name: "Maham",
+    name: "Maham Khurram",
     work: "Nothing Original",
     url: "https://mhmkhrrm.github.io/NothingOriginal/",
     pos: { x: 680, y: 635 },
