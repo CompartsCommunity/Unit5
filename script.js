@@ -65,7 +65,14 @@ const STUDENTS = [
     url: "https://samzyara-web.github.io/The-flow-out-from-within-unit-5/",
     pos: { x: 780, y: 480 },
     slot: { w: 780, h: 480 },
-  }
+  },
+    {
+    name: "Maham",
+    work: "Nothing Original",
+    url: "https://mhmkhrrm.github.io/NothingOriginal/",
+    pos: { x: 680, y: 635 },
+    slot: { w: 680, h: 635 },
+  },
 ];
 
 /* Desktop text positions (absolute pixels inside design canvas) */
