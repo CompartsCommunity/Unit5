@@ -33,8 +33,8 @@ const STUDENTS = [
   },
   {
     name: "Mina",
-    work: "Title",
-    url: "https://minoliiih.github.io/unit5/",
+    work: "totallysafehaha",
+    url: "https://minoliiih.github.io/unit5more/",
     pos: { x: 654, y: 425 },
     slot: { w: 654, h: 425 },
   },
